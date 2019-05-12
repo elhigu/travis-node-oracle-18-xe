@@ -25,7 +25,7 @@ before_script:
   - docker-compose exec oracledb ls -al /usr/lib/oracle || true
   - docker ps || true
   - docker-compose ps || true
-  - docker cp scripts_oracledb_1:/usr/lib/oracle/18.3/client64/lib/ $HOME/
+  - docker cp oracledbxe_container:/usr/lib/oracle/18.3/client64/lib/ $HOME/
   - sudo sh -c "echo $HOME/lib > /etc/ld.so.conf.d/oracle-instantclient.conf"
   - sudo ldconfig
 
