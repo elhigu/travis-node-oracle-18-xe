@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  oracledb:
+    image: quillbuilduser/oracle-18-xe
+    ports:
+      - "21521:1521"
+    environment:
+      - ORACLE_ALLOW_REMOTE=true
+  waitoracledb:
+    image: quillbuilduser/oracle-18-xe
+    depends_on:
+      - oracledb
+    environment:
+      - ORACLE_HOME=/opt/oracle/product/18c/dbhomeXE
+    entrypoint:
+      - bash
+      - -c
+      - 'until /opt/oracle/product/18c/dbhomeXE/bin/sqlplus -s sys/Oracle18@oracledb/XE as sysdba <<< "SELECT 13376411 FROM DUAL; exit;" | grep "13376411"; do echo "Could not connect to oracle... sleep for a while"; sleep 5; done'

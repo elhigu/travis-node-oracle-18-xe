@@ -1,0 +1,22 @@
+{
+  "name": "travis-node-oracle-18-xe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elhigu/travis-node-oracle-18-xe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elhigu/travis-node-oracle-18-xe/issues"
+  },
+  "homepage": "https://github.com/elhigu/travis-node-oracle-18-xe#readme",
+  "dependencies": {
+    "oracledb": "^3.1.2"
+  }
+}
