@@ -9,9 +9,14 @@ const conf = {
 };
 
 async function main() {
-  const c1 = await oracledb.getConnection(conf);
-  const res = await c1.execute(`SELECT 13376411 FROM DUAL`);
-  console.log(res);
+  try {
+    const c1 = await oracledb.getConnection(conf);
+    const res = await c1.execute(`SELECT 13376411 FROM DUAL`);
+    console.log(res);
+  } catch (e) {
+    console.log(e);
+    process.exit(1);
+  }
 }
 
 main();
