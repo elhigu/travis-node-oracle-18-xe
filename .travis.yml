@@ -4,6 +4,7 @@ dist: xenial
 sudo: required
 
 cache:
+  timeout: 600
   directories:
     - "node_modules"
     - "docker_cache"
@@ -18,7 +19,12 @@ install:
   - npm i
 
 before_script:
-  - travis_wait 50 bash scripts/setup-docker.sh
+  - bash scripts/load-cache.sh
+  - bash scripts/start-docker.sh
+  - bash scripts/install-drivers-to-docker.sh
+  - travis_wait 50 bash scripts/save-cache.sh
+  - ls -la docker_cache
+  - bash scripts/install-drivers-to-travis.sh
 
 script:
   - npm test
