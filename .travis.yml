@@ -11,17 +11,20 @@ matrix:
   fast_finish: true
   include:
     - node_js: "10"
+  include:
+    - node_js: "8"
+
 install:
   - npm i
 
 before_script:
   - docker-compose up -d --build oracledb; docker-compose up --build waitoracledb
   - echo "Install oracle client libs to db container and copy to hosts ~/lib for node oracledb driver..."
-  - docker-compose -f scripts/docker-compose.yml exec oracledbxe curl http://yum.oracle.com/public-yum-ol7.repo -o /etc/yum.repos.d/public-yum-ol7.repo
-  - docker-compose -f scripts/docker-compose.yml exec oracledbxe yum install -y yum-utils
-  - docker-compose -f scripts/docker-compose.yml exec oracledbxe yum-config-manager --enable ol7_oracle_instantclient
-  - docker-compose -f scripts/docker-compose.yml exec oracledbxe yum install -y oracle-instantclient18.3-basiclite
-  - docker cp scripts_oracledb_1:/usr/lib/oracle/18.3/client64/lib/ ~/
+  - docker-compose exec oracledb curl http://yum.oracle.com/public-yum-ol7.repo -o /etc/yum.repos.d/public-yum-ol7.repo
+  - docker-compose exec oracledb yum install -y yum-utils
+  - docker-compose exec oracledb yum-config-manager --enable ol7_oracle_instantclient
+  - docker-compose exec oracledb yum install -y oracle-instantclient18.3-basiclite
+  - docker cp oracledbxe_container:/usr/lib/oracle/18.3/client64/lib/ $HOME/
   - sudo sh -c "echo $HOME/lib > /etc/ld.so.conf.d/oracle-instantclient.conf"
   - sudo ldconfig
 
